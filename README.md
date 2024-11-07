@@ -8,8 +8,7 @@ This is a Java-based Hospital Management System (HMS) that manages patient recor
 - [Project Structure](#project-structure)
 - [Requirements](#requirements)
 - [Dependencies](#dependencies)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Installation and Usage](#installation-and-usage)
 
 ---
 
@@ -43,7 +42,7 @@ The project follows a modular structure to separate concerns:
   
 These dependencies are specified in the `pom.xml` file and will be managed automatically by Maven.
 
-## Installation
+## Installation and Usage
 
 1. Clone the repository:
    ```bash
@@ -51,20 +50,18 @@ These dependencies are specified in the `pom.xml` file and will be managed autom
    cd HMS
    ```
 
-2. Build the project using Maven:
+2. Compile the project using Maven:
    ```bash
-   mvn clean install
+   mvn compile
    ```
-
-## Usage
-
-1. **Run the Application**:
+   
+3. **Run the Application**:
    Start the application by running the `Main` class through Maven:
    ```bash
    mvn exec:java
    ```
 
-2. **Interacting with the System**:
+4. **Interacting with the System**:
    - **Doctor**: Manage appointments, view patient medical records, and set availability.
    - **Patient**: Schedule and view appointments, view personal records, and edit contact information.
    - **Administrator**: Access all records and manage user accounts.
