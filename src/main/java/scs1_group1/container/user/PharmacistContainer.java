@@ -2,6 +2,7 @@ package scs1_group1.container.user;
 
 import java.util.HashMap;
 
+import scs1_group1.user.Pharmacist;
 import scs1_group1.user.User;
 
 public class PharmacistContainer extends StaffContainer {
@@ -12,5 +13,10 @@ public class PharmacistContainer extends StaffContainer {
     //give out all pharmacist as hashmap
     public HashMap <String, User> getAllPharmacists(){
         return this.getAllUsersByUserType("Pharmacist");
+    }
+
+    //get pharmacist by hospital id
+    public Pharmacist getPharmacistByHospitalId(String hospitalId){
+        return (Pharmacist) this.getUserByHospitalId(hospitalId);
     }
 }

@@ -60,4 +60,17 @@ public class AppointmentContainer extends RecordContainer {
         return (Appointment) super.getRecord(appointmentRecordId);
     }
 
+    //get all appointments
+    public List<Appointment> getAllAppointments() {
+        List<Appointment> allAppointments = new ArrayList<>();
+        
+        for (Record record : getRecords().values()) {
+            if (record instanceof Appointment) { // Check if it's an Appointment
+                Appointment appointment = (Appointment) record;
+                allAppointments.add(appointment); // Add matching appointment
+            }
+        }
+        return allAppointments;
+    }
+
 }

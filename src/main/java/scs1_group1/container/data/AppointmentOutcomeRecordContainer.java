@@ -32,7 +32,7 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
     
         // Add the AppointmentOutcomeRecord to the container
         super.putRecord(appointmentOutcomeRecord);
-    }    
+    }  
     
     public AppointmentOutcomeRecord getAppointmentOutcomeRecordById(int appointmentRecordId) {
         // Iterate through all records in the container
@@ -61,6 +61,20 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
             }
         }
         return outcomeRecords; // Return the list of matching records (empty if none found)
+    }
+
+    // Get all appointment outcome records
+    public List<AppointmentOutcomeRecord> getAllAppointmentOutcomeRecords() {
+        List<AppointmentOutcomeRecord> outcomeRecords = new ArrayList<>();
+
+        // Iterate through all records in the container
+        for (Record record : getRecords().values()) {
+            if (record instanceof AppointmentOutcomeRecord) {
+                AppointmentOutcomeRecord outcomeRecord = (AppointmentOutcomeRecord) record;
+                outcomeRecords.add(outcomeRecord); // Add record to the list
+            }
+        }
+        return outcomeRecords; // Return the list of records
     }
 
     

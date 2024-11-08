@@ -5,6 +5,7 @@ import scs1_group1.container.Container;
 import scs1_group1.container.data.AppointmentContainer;
 import scs1_group1.container.data.AppointmentOutcomeRecordContainer;
 import scs1_group1.container.data.MedicineContainer;
+import scs1_group1.container.data.ReplenishmentRequestContainer;
 import scs1_group1.container.user.AdministratorContainer;
 import scs1_group1.container.user.DoctorContainer;
 import scs1_group1.container.user.PatientContainer;
@@ -26,6 +27,7 @@ public class Main {
         MedicineContainer medicineContainer=new MedicineContainer(MedicinePath);
         AppointmentContainer appointmentContainer=new AppointmentContainer();
         AppointmentOutcomeRecordContainer appointmentOutcomeContainer=new AppointmentOutcomeRecordContainer();
+        ReplenishmentRequestContainer replenishmentRequestContainer = new ReplenishmentRequestContainer();
 
         HashMap<String,Container> containers=new HashMap<>();
         containers.put("Patient",patientContainer);
@@ -35,6 +37,7 @@ public class Main {
         containers.put("Medicine",medicineContainer);
         containers.put("Appointment",appointmentContainer);
         containers.put("AppointmentOutcomeRecord",appointmentOutcomeContainer);
+        containers.put("ReplenishmentRequest",replenishmentRequestContainer);
 
         StartMenu startMenu=new StartMenu(containers);
         startMenu.run();

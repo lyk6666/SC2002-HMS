@@ -37,6 +37,11 @@ public class AppointmentOutcomeRecord extends Record {
         return patientHospitalId;
     }
 
+    //get the doctor hospital id
+    public String getDoctorHospitalId() {
+        return doctorHospitalId;
+    }
+
     // Date
     public String getTime(RecordContainer appointmentContainer) {
         return ((Appointment) (appointmentContainer.getRecord(appointmentRecordId))).getTime();

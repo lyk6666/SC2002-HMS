@@ -3,6 +3,7 @@ C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PR
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\data\AppointmentOutcomeRecordContainer.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\data\MedicineContainer.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\data\RecordContainer.java
+C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\data\ReplenishmentRequestContainer.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\user\AdministratorContainer.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\user\DoctorContainer.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\container\user\PatientContainer.java
@@ -22,6 +23,7 @@ C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PR
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\record\Medicine.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\record\Prescription.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\record\Record.java
+C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\record\ReplenishmentRequest.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\user\Administrator.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\user\Doctor.java
 C:\Users\Raymond\iCloudDrive\24s1 course content\SC2002 OBJECT ORIENTED DES & PROG\group proj\hms\src\main\java\scs1_group1\user\Patient.java

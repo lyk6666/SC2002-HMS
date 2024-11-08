@@ -44,4 +44,15 @@ public class StaffContainer extends UserContainer {
             e.printStackTrace();
         }
     }
+
+    public void addStaff(String staffId, String password, String name, String gender, String userType, String email, int age) {
+        if (userType.equalsIgnoreCase("Doctor")) {
+            putUser(new Doctor(staffId, password, name, gender, userType, email, age));
+        } else if (userType.equalsIgnoreCase("Pharmacist")) {
+            putUser(new Pharmacist(staffId, password, name, gender, userType, email, age));
+        } else if (userType.equalsIgnoreCase("Administrator")) {
+            putUser(new Administrator(staffId, password, name, gender, userType, email, age));
+        } else {
+        }
+    }
 }

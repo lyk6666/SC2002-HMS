@@ -8,6 +8,7 @@ import scs1_group1.container.Container;
 import scs1_group1.container.data.AppointmentContainer;
 import scs1_group1.container.data.AppointmentOutcomeRecordContainer;
 import scs1_group1.container.data.MedicineContainer;
+import scs1_group1.container.data.ReplenishmentRequestContainer;
 import scs1_group1.container.user.AdministratorContainer;
 import scs1_group1.container.user.DoctorContainer;
 import scs1_group1.container.user.PatientContainer;
@@ -69,6 +70,12 @@ public void run() {
         AppointmentContainer appointmentContainer = (AppointmentContainer)(containers.get("Appointment"));
         AppointmentOutcomeRecordContainer appointmentOutcomeRecordContainer = (AppointmentOutcomeRecordContainer)(containers.get("AppointmentOutcomeRecord"));
         MedicineContainer medicineContainer = (MedicineContainer)(containers.get("Medicine"));
+        ReplenishmentRequestContainer replenishmentRequestContainer = (ReplenishmentRequestContainer)(containers.get("ReplenishmentRequest"));
+
+        //put some sample appointments for testing
+        appointmentContainer.addAppointment("2021-10-01 10:00", "P1001", "D001");
+        appointmentContainer.addAppointment("2021-10-01 11:00", "P1002", "D002");
+        appointmentContainer.addAppointment("2021-10-01 14:00", "P1003", "d001");
 
         if (patientContainer.containsUser(hospitalId)&&patientContainer.getUserTypeByHospitalId(hospitalId).equals("Patient")){ 
             String correctPassword=patientContainer.getUserByHospitalId(hospitalId).getPassword();
@@ -96,7 +103,12 @@ public void run() {
         } else if (pharmacistContainer.containsUser(hospitalId)&&pharmacistContainer.getUserTypeByHospitalId(hospitalId).equals("Pharmacist")){
             String correctPassword=pharmacistContainer.getUserByHospitalId(hospitalId).getPassword();
             if (password.equals(correctPassword)) {
-                return new PharmacistMenu();
+                return new PharmacistMenu(
+                    hospitalId,
+                    appointmentOutcomeRecordContainer,
+                    medicineContainer,
+                    replenishmentRequestContainer
+                );
             } else return null;
         } else if (administratorContainer.containsUser(hospitalId)&&administratorContainer.getUserTypeByHospitalId(hospitalId).equals("Administrator")){
             String correctPassword=administratorContainer.getUserByHospitalId(hospitalId).getPassword();
@@ -107,7 +119,9 @@ public void run() {
                     patientContainer,
                     doctorContainer,
                     pharmacistContainer,
-                    medicineContainer
+                    medicineContainer,
+                    replenishmentRequestContainer,
+                    appointmentContainer
                 );
             } else return null;
         }

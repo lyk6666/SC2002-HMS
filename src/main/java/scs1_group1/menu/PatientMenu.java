@@ -107,22 +107,31 @@ public class PatientMenu extends Menu {
 
             if (outcomeRecord != null) {
                 System.out.println("----------------------------------------");
-                System.out.println("\nAppointment Outcome Record completed for the appointment with doctor ID: "+ selectedAppointment.getdoctorHospitalId()+ " Name: "+ doctorContainer.getDoctorByHospitalId(selectedAppointment.getdoctorHospitalId()).getName() + " on " + selectedAppointment.getTime());
+                System.out.println("\nAppointment Outcome Record completed for the appointment with doctor ID: " + selectedAppointment.getdoctorHospitalId() + 
+                                " Name: " + doctorContainer.getDoctorByHospitalId(selectedAppointment.getdoctorHospitalId()).getName() + 
+                                " on " + selectedAppointment.getTime());
                 System.out.println("Service Type: " + outcomeRecord.getServiceType());
                 System.out.println("Consultation Notes: " + outcomeRecord.getConsultationNotes());
                 System.out.println("\nPrescriptions:");
+                
                 if (outcomeRecord.getPrescriptions().isEmpty()) {
                     System.out.println("No prescriptions recorded.");
                 } else {
+                    System.out.printf("%-5s %-20s %-10s %-10s%n", "No.", "Medication", "Amount", "Status");
                     for (int i = 0; i < outcomeRecord.getPrescriptions().size(); i++) {
                         Prescription prescription = outcomeRecord.getPrescriptions().get(i);
-                        System.out.printf("%d. Medication: %s, Amount: %d%n", (i + 1), prescription.getMedicine(), prescription.getAmount());
+                        System.out.printf("%-5d %-20s %-10d %-10s%n", 
+                                        (i + 1), 
+                                        prescription.getMedicine(), 
+                                        prescription.getAmount(), 
+                                        prescription.getStatus());
                     }
                 }
                 System.out.println("----------------------------------------");
             } else {
                 System.out.println("No outcome record found for this appointment.");
             }
+
         }
     }
 

@@ -45,6 +45,19 @@ public class MedicineContainer extends RecordContainer {
             }
         }
         return medicines;
-    }   
+    } 
+    
+    //since medicine name is unique, we can use this method to get the medicine object by its name
+    public Medicine getMedicineByName(String medicineName) {
+        for (Record record : getRecords().values()) {
+            if (record instanceof Medicine) {
+                Medicine medicine = (Medicine) record;
+                if (medicine.getMedicineName().equals(medicineName)) {
+                    return medicine;
+                }
+            }
+        }
+        return null;
+    }
     
 }
