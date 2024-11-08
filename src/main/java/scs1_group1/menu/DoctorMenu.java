@@ -36,10 +36,10 @@ public class DoctorMenu extends Menu {
     @Override
     public void run() {
 
-        //put some sample appointments for testing
+        /*//put some sample appointments for testing
         appointmentContainer.addAppointment("2021-10-01 10:00", "P1001", doctorHospitalId);
         appointmentContainer.addAppointment("2021-10-01 11:00", "P1002", doctorHospitalId);
-        appointmentContainer.addAppointment("2021-10-01 14:00", "P1003", doctorHospitalId);
+        appointmentContainer.addAppointment("2021-10-01 14:00", "P1003", doctorHospitalId);*/
 
         Scanner sc=new Scanner(System.in);
         int choice;

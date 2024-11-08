@@ -13,6 +13,7 @@ import scs1_group1.container.user.AdministratorContainer;
 import scs1_group1.container.user.DoctorContainer;
 import scs1_group1.container.user.PatientContainer;
 import scs1_group1.container.user.PharmacistContainer;
+import scs1_group1.container.user.UserContainer;
 
 public class StartMenu extends Menu {
     HashMap<String,Container> containers;
@@ -72,14 +73,17 @@ public void run() {
         MedicineContainer medicineContainer = (MedicineContainer)(containers.get("Medicine"));
         ReplenishmentRequestContainer replenishmentRequestContainer = (ReplenishmentRequestContainer)(containers.get("ReplenishmentRequest"));
 
-        //put some sample appointments for testing
+        /*//put some sample appointments for testing
         appointmentContainer.addAppointment("2021-10-01 10:00", "P1001", "D001");
         appointmentContainer.addAppointment("2021-10-01 11:00", "P1002", "D002");
-        appointmentContainer.addAppointment("2021-10-01 14:00", "P1003", "d001");
+        appointmentContainer.addAppointment("2021-10-01 14:00", "P1003", "d001");*/
 
         if (patientContainer.containsUser(hospitalId)&&patientContainer.getUserTypeByHospitalId(hospitalId).equals("Patient")){ 
             String correctPassword=patientContainer.getUserByHospitalId(hospitalId).getPassword();
             if (password.equals(correctPassword)) {
+                if (password.equals("password")) {
+                    promptPasswordChange(patientContainer, hospitalId);  // Prompt to change default password
+                }
                 return new PatientMenu(
                     hospitalId,
                     patientContainer,
@@ -91,6 +95,9 @@ public void run() {
         } else if (doctorContainer.containsUser(hospitalId)&&doctorContainer.getUserTypeByHospitalId(hospitalId).equals("Doctor")){
             String correctPassword=doctorContainer.getUserByHospitalId(hospitalId).getPassword();
             if (password.equals(correctPassword)) {
+                if (password.equals("password")) {
+                    promptPasswordChange(doctorContainer, hospitalId);  // Prompt to change default password
+                }
                 return new DoctorMenu(
                     hospitalId,
                     doctorContainer,
@@ -103,6 +110,9 @@ public void run() {
         } else if (pharmacistContainer.containsUser(hospitalId)&&pharmacistContainer.getUserTypeByHospitalId(hospitalId).equals("Pharmacist")){
             String correctPassword=pharmacistContainer.getUserByHospitalId(hospitalId).getPassword();
             if (password.equals(correctPassword)) {
+                if (password.equals("password")) {
+                    promptPasswordChange(pharmacistContainer, hospitalId);  // Prompt to change default password
+                }
                 return new PharmacistMenu(
                     hospitalId,
                     appointmentOutcomeRecordContainer,
@@ -113,6 +123,9 @@ public void run() {
         } else if (administratorContainer.containsUser(hospitalId)&&administratorContainer.getUserTypeByHospitalId(hospitalId).equals("Administrator")){
             String correctPassword=administratorContainer.getUserByHospitalId(hospitalId).getPassword();
             if (password.equals(correctPassword)) {
+                if (password.equals("password")) {
+                    promptPasswordChange(administratorContainer, hospitalId);  // Prompt to change default password
+                }
                 return new AdministratorMenu(
                     hospitalId,
                     administratorContainer,
@@ -126,7 +139,28 @@ public void run() {
             } else return null;
         }
         return null;
+    }  
+    
+    private void promptPasswordChange(UserContainer userContainer, String hospitalId) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("You are using the default password. Please change it for security.");
+        String newPassword;
+    
+        while (true) {
+            System.out.print("Enter new password: ");
+            newPassword = sc.nextLine();
+    
+            System.out.print("Confirm new password: ");
+            String confirmPassword = sc.nextLine();
+    
+            if (newPassword.equals(confirmPassword)) {
+                userContainer.getUserByHospitalId(hospitalId).setPassword(newPassword);
+                System.out.println("Password changed successfully.");
+                break;
+            } else {
+                System.out.println("Passwords do not match. Please try again.");
+            }
+        }
     }
-
     
 }

@@ -18,16 +18,7 @@ public class Doctor extends Staff {
     ) {
         super(hospitalId, password, name, gender, userType, email, age);
          // Initialize the list of available slots in ''YYYY-MM-DD HH:MM'' format,and add samples for testing
-        this.availableSlots = new ArrayList<>(
-            List.of(
-                "2021-12-01 09:00", 
-                "2021-12-01 10:00", 
-                "2021-12-01 11:00", 
-                "2021-12-01 14:00", 
-                "2021-12-01 15:00", 
-                "2021-12-01 16:00"
-            )
-        );
+        this.availableSlots = new ArrayList<>();
         
         this.HospitalIdOfPatientsUnderCare = new ArrayList<>(); // Initialize the list of hospital IDs of patients under care
     }
