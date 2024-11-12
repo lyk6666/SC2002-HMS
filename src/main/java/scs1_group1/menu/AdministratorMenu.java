@@ -55,6 +55,7 @@ public class AdministratorMenu extends Menu {
             System.out.println("2. Manage Staff");
             System.out.println("3. Manage Medicine");
             System.out.println("4. Manage Replenishment Request");
+            System.out.println("5. Change Medicine Alert Level");
             
             System.out.print("Enter your choice: ");
             choice=sc.nextInt();
@@ -69,10 +70,89 @@ public class AdministratorMenu extends Menu {
                     manageMedicine(); break;
                 case 4:
                     manageReplenishmentRequest(); break;
+                case 5:
+                    changeAlertLevel(); break; // missed function
                 default:
                     System.out.println("Invalid choice");
             }
         } while (choice!=0);
+    }
+
+    private void changeAlertLevel(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("----------------------------------------");
+        System.out.println("All Medicines:");
+        System.out.printf("%-5s %-20s %-15s %-15s %-15s%n", "No.", "Medicine Name", "Current Stock", "Alert Threshold", "Stock Level");
+        System.out.println("------------------------------------------------------------");
+    
+        List<Medicine> medicines = medicineContainer.getAllMedicines();
+    
+        if (medicines.isEmpty()) {
+            System.out.println("No medicines in the inventory.");
+        } else {
+            for (int i = 0; i < medicines.size(); i++) {
+                Medicine medicine = medicines.get(i);
+                String stockLevel = (medicine.getCurrentStock() <= medicine.getAlertThreshold()) ? "Low Stock" : "Normal";
+                System.out.printf("%-5d %-20s %-15d %-15d %-15s%n",
+                    (i + 1),
+                    medicine.getMedicineName(),
+                    medicine.getCurrentStock(),
+                    medicine.getAlertThreshold(),
+                    stockLevel
+                );
+            }
+    
+            // Prompt the user to select a medicine to update
+            System.out.println("------------------------------------------------------------");
+            System.out.print("Enter the number of the medicine you want to update stock alert level (or 0 to go back): ");
+            int choice;
+            while (true) {
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    sc.nextLine(); // Clear buffer
+                    if (choice >= 0 && choice <= medicines.size()) {
+                        break;
+                    } else {
+                        System.out.println("Invalid choice. Please enter a number between 0 and " + medicines.size());
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a number.");
+                    sc.next(); // Clear invalid input
+                }
+            }
+    
+            // Go back if user chooses 0
+            if (choice == 0) {
+                System.out.println("Returning to previous menu...");
+                return;
+            }
+    
+            // Get the selected medicine
+            Medicine selectedMedicine = medicines.get(choice - 1);
+            System.out.println("You selected: " + selectedMedicine.getMedicineName());
+            
+            // Prompt for the new stock level
+            System.out.print("Enter the new stock alert level: ");
+            int newAlertLevel;
+            while (true) {
+                if (sc.hasNextInt()) {
+                    newAlertLevel = sc.nextInt();
+                    sc.nextLine(); // Clear buffer
+                    if (newAlertLevel >= 0) {
+                        break;
+                    } else {
+                        System.out.println("Please enter a valid positive integer for alert stock level.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter an integer.");
+                    sc.next(); // Clear invalid input
+                }
+            }
+    
+            // Update the stock level
+            selectedMedicine.setAlertThreshold(newAlertLevel);
+            System.out.println("Alert stock level for " + selectedMedicine.getMedicineName() + " updated to " + newAlertLevel + ".");
+        }
     }
 
     private void manageMedicine() {
@@ -277,7 +357,7 @@ public class AdministratorMenu extends Menu {
         do {
             System.out.println("----------------------------------------");
             System.out.println("Manage Staff");
-            System.out.println("0. Log out");
+            System.out.println("0. Back");
             System.out.println("1. View All Staff");
             System.out.println("2. Add Staff");
             System.out.println("3. Edit Staff");
@@ -481,35 +561,217 @@ public class AdministratorMenu extends Menu {
     }    
 
     private void printAllStaff() {
-        System.out.println("----------------------------------------");
-        System.out.println("All Staff:");
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("----------------------------------------");
+            System.out.println("View Staff");
+            System.out.println("0. Back");
+            System.out.println("1. Filtered by gender");
+            System.out.println("2. Filtered by age");
+            System.out.println("3. Filetered by role");
+            System.out.println("4. No Fileter");
+            choice = sc.nextInt();
+            
+            switch (choice) {
+                case 0:
+                    System.out.println("Returning to previous menu..."); break;
+                case 1:
+                    genderFilteredView(); break;
+                case 2:
+                    ageFilteredView(); break;
+                case 3:
+                    roleFilterView(); break;
+                case 4:
+                    noFilterView();break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        } while (choice != 0);
+    }
 
-        System.out.println("\nDoctors:");
-        System.out.printf("%-5s %-20s %-15s%n", "No.", "Hospital ID", "Doctor Name");
-        System.out.println("------------------------------------------------------------");
-        List<User> doctors = doctorContainer.getAllDoctors().values().stream().toList();
-        for (int i = 0; i < doctors.size(); i++) {
-            Doctor doctor = (Doctor) doctors.get(i);
-            System.out.printf("%-5d %-20s %-15s%n", (i + 1), doctor.getHospitalId(), doctor.getName());
+
+    public void genderFilteredView() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select Gender to View:");
+        System.out.println("1. Male");
+        System.out.println("2. Female");
+        System.out.print("Enter the number corresponding to the gender: ");
+        
+        int choice = sc.nextInt();
+        sc.nextLine(); 
+        String gender;
+        switch (choice) {
+            case 1:
+                gender = "Male";
+                break;
+            case 2:
+                gender = "Female";
+                break;
+            default:
+                System.out.println("Invalid choice. Returning to previous menu.");
+                return;
         }
-
-        System.out.println("\nPharmacists:");
-        System.out.printf("%-5s %-20s %-15s%n", "No.", "Hospital ID", "Pharmacist Name");
-        System.out.println("------------------------------------------------------------");
-        List<User> pharmacists = pharmacistContainer.getAllPharmacists().values().stream().toList();
-        for (int i = 0; i < pharmacists.size(); i++) {
-            Pharmacist pharmacist = (Pharmacist) pharmacists.get(i);
-            System.out.printf("%-5d %-20s %-15s%n", (i + 1), pharmacist.getHospitalId(), pharmacist.getName());
+        System.out.println("Staff - Gender: " + gender);
+        System.out.printf("%-5s %-15s %-20s %-15s %-5s%n", "No.", "Hospital ID", "Name", "Role", "Age");
+        System.out.println("-----------------------------------------------------------------------");
+        int counter = 1;
+    
+        List<User> doctors = doctorContainer.getAllDoctors().values().stream().filter(user -> user.getGender().equalsIgnoreCase(gender)).toList();
+        for (User user : doctors) {
+            Doctor doctor = (Doctor) user;
+            System.out.printf("%-5d %-15s %-20s %-15s %-5d%n", counter++, doctor.getHospitalId(), doctor.getName(), "Doctor", doctor.getAge());
         }
+    
+        List<User> pharmacists = pharmacistContainer.getAllPharmacists().values().stream().filter(user -> user.getGender().equalsIgnoreCase(gender)).toList();
+        for (User user : pharmacists) {
+            Pharmacist pharmacist = (Pharmacist) user;
+            System.out.printf("%-5d %-15s %-20s %-15s %-5d%n", counter++, pharmacist.getHospitalId(), pharmacist.getName(), "Pharmacist", pharmacist.getAge());
+        }
+    
+        List<User> admins = administratorContainer.getAllAdministrators().values().stream().filter(user -> user.getGender().equalsIgnoreCase(gender)).toList();
+        for (User user : admins) {
+            Administrator admin = (Administrator) user;
+            System.out.printf("%-5d %-15s %-20s %-15s %-5d%n", counter++, admin.getHospitalId(), admin.getName(), "Administrator", admin.getAge());
+        }
+    
+        if (counter == 1) {
+            System.out.println("No staff members found with the gender: " + gender);
+        }
+    }
+    
 
-        System.out.println("\nAdministrators:");
-        System.out.printf("%-5s %-20s %-15s%n", "No.", "Hospital ID", "Admin Name");
-        System.out.println("------------------------------------------------------------");
-        List<User> admins = administratorContainer.getAllAdministrators().values().stream().toList();
-        for (int i = 0; i < admins.size(); i++) {
-            Administrator admin = (Administrator) admins.get(i);
-            System.out.printf("%-5d %-20s %-15s%n", (i + 1), admin.getHospitalId(), admin.getName());
+    public void ageFilteredView() {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Enter Age Range:");
+        System.out.print("Enter lower age limit: ");
+        int lowerLimit = sc.nextInt();
+        
+        System.out.print("Enter upper age limit: ");
+        int upperLimit = sc.nextInt();
+        sc.nextLine();
+    
+        if (lowerLimit > upperLimit) {
+            System.out.println("Invalid range. The lower limit should be less than or equal to the upper limit.");
+            return;
+        }
+    
+        System.out.println("Staff - Age Range: " + lowerLimit + " to " + upperLimit);
+        System.out.printf("%-5s %-15s %-20s %-15s %-10s%n", "No.", "Hospital ID", "Name", "Role", "Age");
+        System.out.println("-----------------------------------------------------------------------");
+    
+        int counter = 1;
+    
+        List<Doctor> doctors = doctorContainer.getAllDoctors().values().stream()
+            .filter(user -> {
+                Doctor doctor = (Doctor) user;
+                return doctor.getAge() >= lowerLimit && doctor.getAge() <= upperLimit;
+            })
+            .map(user -> (Doctor) user)
+            .toList();
+        
+        for (Doctor doctor : doctors) {
+            System.out.printf("%-5d %-15s %-20s %-15s %-10d%n", counter++, doctor.getHospitalId(), doctor.getName(), "Doctor", doctor.getAge());
+        }
+    
+        List<Pharmacist> pharmacists = pharmacistContainer.getAllPharmacists().values().stream()
+            .filter(user -> {
+                Pharmacist pharmacist = (Pharmacist) user;
+                return pharmacist.getAge() >= lowerLimit && pharmacist.getAge() <= upperLimit;
+            })
+            .map(user -> (Pharmacist) user)
+            .toList();
+        
+        for (Pharmacist pharmacist : pharmacists) {
+            System.out.printf("%-5d %-15s %-20s %-15s %-10d%n", counter++, pharmacist.getHospitalId(), pharmacist.getName(), "Pharmacist", pharmacist.getAge());
+        }
+    
+        List<Administrator> admins = administratorContainer.getAllAdministrators().values().stream()
+            .filter(user -> {
+                Administrator admin = (Administrator) user;
+                return admin.getAge() >= lowerLimit && admin.getAge() <= upperLimit;
+            })
+            .map(user -> (Administrator) user)
+            .toList();
+        
+        for (Administrator admin : admins) {
+            System.out.printf("%-5d %-15s %-20s %-15s %-10d%n", counter++, admin.getHospitalId(), admin.getName(), "Administrator", admin.getAge());
+        }
+    
+        if (counter == 1) {
+            System.out.println("No staff members found within the age range: " + lowerLimit + " to " + upperLimit);
+        }
+    }
+    
+    
+
+    public void roleFilterView(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select Role to View:");
+        System.out.println("1. Doctor");
+        System.out.println("2. Pharmacist");
+        System.out.println("3. Administrator");
+        System.out.print("Enter the number corresponding to the role: ");
+        
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.printf("%-5s %-15s %-20s %-15s %-10s %-5s%n", "No.", "Hospital ID", "Name", "Role", "Gender", "Age");
+                System.out.println("-----------------------------------------------------------------------");
+                List<User> doctors = doctorContainer.getAllDoctors().values().stream().toList();
+                for (int i = 0; i < doctors.size(); i++) {
+                    Doctor doctor = (Doctor) doctors.get(i);
+                    System.out.printf("%-5d %-15s %-20s %-15s %-10s %-5d%n", (i + 1), doctor.getHospitalId(), doctor.getName(), "Doctor", doctor.getGender(), doctor.getAge());
+                }
+                break;
+            case 2:
+                System.out.printf("%-5s %-15s %-20s %-15s %-10s %-5s%n", "No.", "Hospital ID", "Name", "Role", "Gender", "Age");
+                System.out.println("-----------------------------------------------------------------------");
+                List<User> pharmacists = pharmacistContainer.getAllPharmacists().values().stream().toList();
+                for (int i = 0; i < pharmacists.size(); i++) {
+                    Pharmacist pharmacist = (Pharmacist) pharmacists.get(i);
+                    System.out.printf("%-5d %-15s %-20s %-15s %-10s %-5d%n", (i + 1), pharmacist.getHospitalId(), pharmacist.getName(), "Pharmacist", pharmacist.getGender(), pharmacist.getAge());
+                }
+                break;
+            case 3:
+                System.out.printf("%-5s %-15s %-20s %-15s %-10s %-5s%n", "No.", "Hospital ID", "Name", "Role", "Gender", "Age");
+                System.out.println("-----------------------------------------------------------------------");
+                List<User> admins = administratorContainer.getAllAdministrators().values().stream().toList();
+                for (int i = 0; i < admins.size(); i++) {
+                    Administrator admin = (Administrator) admins.get(i);
+                    System.out.printf("%-5d %-15s %-20s %-15s %-10s %-5d%n", (i + 1), admin.getHospitalId(), admin.getName(), "Administrator", admin.getGender(), admin.getAge());
+                }
+                break;
+            default:
+                System.out.println("Invalid choice. Returning to previous menu.");
+                return;
         }
     }
 
+    public void noFilterView(){
+        System.out.println("All Staff:");
+        System.out.printf("%-5s %-15s %-20s %-15s %-10s %-5s%n", "No.", "Hospital ID", "Name", "Role", "Gender", "Age");
+        System.out.println("-----------------------------------------------------------------------");
+        // Display Doctors
+        List<User> doctors = doctorContainer.getAllDoctors().values().stream().toList();
+        for (int i = 0; i < doctors.size(); i++) {
+            Doctor doctor = (Doctor) doctors.get(i);
+            System.out.printf("%-5d %-15s %-20s %-15s %-10s %-5d%n", (i + 1), doctor.getHospitalId(), doctor.getName(), "Doctor", doctor.getGender(), doctor.getAge());
+        }
+        // Display Pharmacists
+        List<User> pharmacists = pharmacistContainer.getAllPharmacists().values().stream().toList();
+        for (int i = 0; i < pharmacists.size(); i++) {
+            Pharmacist pharmacist = (Pharmacist) pharmacists.get(i);
+            System.out.printf("%-5d %-15s %-20s %-15s %-10s %-5d%n", (i + 1), pharmacist.getHospitalId(), pharmacist.getName(), "Pharmacist", pharmacist.getGender(), pharmacist.getAge());
+        }
+        // Display Administrators
+        List<User> admins = administratorContainer.getAllAdministrators().values().stream().toList();
+        for (int i = 0; i < admins.size(); i++) {
+            Administrator admin = (Administrator) admins.get(i);
+            System.out.printf("%-5d %-15s %-20s %-15s %-10s %-5d%n", (i + 1), admin.getHospitalId(), admin.getName(), "Administrator", admin.getGender(), admin.getAge());
+        }
+    }
 }

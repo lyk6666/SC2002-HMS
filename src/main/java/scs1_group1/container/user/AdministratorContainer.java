@@ -19,6 +19,4 @@ public class AdministratorContainer extends StaffContainer {
     public Administrator getAdministratorByHospitalId(String hospitalId){
         return (Administrator) this.getUserByHospitalId(hospitalId);
     }
-
-    
 }

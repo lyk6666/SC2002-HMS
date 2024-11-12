@@ -62,24 +62,54 @@ public class PatientMenu extends Menu {
         } while (choice!=0);
     }
 
-    private void manageAppointmentOutcomeRecord(){
+    private void manageAppointmentOutcomeRecord() {
         Scanner sc = new Scanner(System.in);
+    
+        System.out.println("Filter options:");
+        System.out.println("1. Filter by Doctor");
+        System.out.println("2. Filter by Date");
+        System.out.print("Enter your choice (1 or 2): ");
+        int filterChoice = sc.nextInt();
+        sc.nextLine(); // Clear buffer
+    
+        List<Appointment> appointments;
+    
+        // Apply the chosen filter
+        switch (filterChoice) {
+            case 1: // Filter by doctor
+                System.out.print("Enter Doctor's Hospital ID: ");
+                String doctorId = sc.nextLine();
+                appointments = appointmentContainer.getAllAppointmentsByPatientIdDoctorIdAndStatus(patientHospitalId, doctorId, "completed");
+                break;
+            case 2: // Filter by date (YYYY-MM-DD only)
+                System.out.print("Enter Date (YYYY-MM-DD): ");
+                String date = sc.nextLine();
+                // Filter appointments by date part only (YYYY-MM-DD)
+                appointments = appointmentContainer.getAllAppointmentsByPatientIdAndStatus(patientHospitalId, "completed").stream()
+                        .filter(appointment -> appointment.getTime().substring(0, 10).equals(date))
+                        .toList();
+                break;
+            default:
+                System.out.println("Invalid choice. Returning to the previous menu.");
+                return;
+        }
+    
+        // Display the filtered appointments
         System.out.println("Completed Appointments:");
-        System.out.printf("%-5s %-15s %-20s %-20s%n", "No.", "Date & Time", "Patient ID", "Status");
+        System.out.printf("%-5s %-20s %-20s %-20s %-20s%n", "No.", "Date & Time", "Patient ID", "Doctor ID","Status");
         System.out.println("------------------------------------------------------------");
-
-        List<Appointment> appointments = appointmentContainer.getAllAppointmentsByPatientIdAndStatus(patientHospitalId, "completed");
-
+    
         if (appointments.isEmpty()) {
-            System.out.println("No completed appointments found.");
+            System.out.println("No completed appointments found for the selected filter.");
         } else {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String patientId = appointment.getpatientHospitalId();
-                System.out.printf("%-5d %-15s %-20s %-20s%n", (i + 1), appointment.getTime(), patientId, appointment.getStatus());
+                String doctorId = appointment.getdoctorHospitalId();
+                System.out.printf("%-5s %-20s %-20s %-20s %-20s%n", (i + 1), appointment.getTime(), patientId, doctorId,appointment.getStatus());
             }
-
-            // Prompt doctor to select a completed appointment to view its outcome record
+    
+            // Prompt patient to select a completed appointment to view its outcome record
             System.out.println("----------------------------------------");
             System.out.print("Enter the number of the completed appointment to view its outcome record (or 0 to go back): ");
             int choice;
@@ -89,7 +119,7 @@ public class PatientMenu extends Menu {
                     sc.nextLine(); // Clear buffer
                     if (choice == 0) {
                         System.out.println("Returning to previous menu...");
-                        return; // Exit if the user wants to go back
+                        return;
                     } else if (choice >= 1 && choice <= appointments.size()) {
                         break; // Valid choice to view an outcome record
                     } else {
@@ -100,40 +130,39 @@ public class PatientMenu extends Menu {
                     sc.next(); // Clear invalid input
                 }
             }
-
+    
             // Fetch and display the Appointment Outcome Record
             Appointment selectedAppointment = appointments.get(choice - 1);
             AppointmentOutcomeRecord outcomeRecord = appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getRecordId());
-
+    
             if (outcomeRecord != null) {
                 System.out.println("----------------------------------------");
-                System.out.println("\nAppointment Outcome Record completed for the appointment with doctor ID: " + selectedAppointment.getdoctorHospitalId() + 
-                                " Name: " + doctorContainer.getDoctorByHospitalId(selectedAppointment.getdoctorHospitalId()).getName() + 
-                                " on " + selectedAppointment.getTime());
+                System.out.println("\nAppointment Outcome Record completed for the appointment with doctor ID: " + selectedAppointment.getdoctorHospitalId() +
+                                   " Name: " + doctorContainer.getDoctorByHospitalId(selectedAppointment.getdoctorHospitalId()).getName() +
+                                   " on " + selectedAppointment.getTime());
                 System.out.println("Service Type: " + outcomeRecord.getServiceType());
                 System.out.println("Consultation Notes: " + outcomeRecord.getConsultationNotes());
                 System.out.println("\nPrescriptions:");
-                
+    
                 if (outcomeRecord.getPrescriptions().isEmpty()) {
                     System.out.println("No prescriptions recorded.");
                 } else {
                     System.out.printf("%-5s %-20s %-10s %-10s%n", "No.", "Medication", "Amount", "Status");
                     for (int i = 0; i < outcomeRecord.getPrescriptions().size(); i++) {
                         Prescription prescription = outcomeRecord.getPrescriptions().get(i);
-                        System.out.printf("%-5d %-20s %-10d %-10s%n", 
-                                        (i + 1), 
-                                        prescription.getMedicine(), 
-                                        prescription.getAmount(), 
-                                        prescription.getStatus());
+                        System.out.printf("%-5d %-20s %-10d %-10s%n",
+                                          (i + 1),
+                                          prescription.getMedicine(),
+                                          prescription.getAmount(),
+                                          prescription.getStatus());
                     }
                 }
                 System.out.println("----------------------------------------");
             } else {
                 System.out.println("No outcome record found for this appointment.");
             }
-
         }
-    }
+    }    
 
     private void viewContactInformation() {
         Scanner sc = new Scanner(System.in);
@@ -145,7 +174,7 @@ public class PatientMenu extends Menu {
             System.out.println("Email: " + patient.getEmail());
             System.out.println("Phone: " + patient.getPhoneNumber());
             System.out.println("----------------------------------------");
-            System.out.println("0. Log out");
+            System.out.println("0. Back");
             System.out.println("1. Change Email");
             System.out.println("2. Change Phone Number");
             System.out.print("Enter your choice: ");
@@ -188,7 +217,7 @@ public class PatientMenu extends Menu {
         do {
             System.out.println("----------------------------------------");
             System.out.println("Appointment Management Menu");
-            System.out.println("0. Log out");
+            System.out.println("0. Back");
             System.out.println("1. Schedule an Appointment");
             System.out.println("2. Upcoming Appointments");
     
@@ -400,10 +429,6 @@ public class PatientMenu extends Menu {
         System.out.println("Appointment cancelled successfully.");
     }
     
-    
-
-
-    
     private void viewMedicalRecord() {
         String name = patient.getName();
         String dateOfBirth = patient.getDateOfBirth();
@@ -438,11 +463,5 @@ public class PatientMenu extends Menu {
                 System.out.println("- " + treatment);
             }
         }
-    }
-    
-
-    
-
-    
+    }   
 }
-

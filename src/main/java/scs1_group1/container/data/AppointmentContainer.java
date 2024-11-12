@@ -1,5 +1,7 @@
 package scs1_group1.container.data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +73,35 @@ public class AppointmentContainer extends RecordContainer {
             }
         }
         return allAppointments;
+    }
+
+    public static boolean isValidDateTime(String dateTime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        format.setLenient(false); // Set to false to ensure strict matching
+        try {
+            format.parse(dateTime);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    // new functions
+    public List<Appointment> getAllAppointmentsByPatientIdDoctorIdAndStatus(String patientHospitalId, String doctorHospitalId, String status) {
+        List<Appointment> filteredAppointments = new ArrayList<>();
+
+        // Iterate through all records and filter by patient ID, doctor ID, and status
+        for (Record record : getRecords().values()) {
+            if (record instanceof Appointment) { // Check if it's an Appointment
+                Appointment appointment = (Appointment) record;
+                if (appointment.getpatientHospitalId().equals(patientHospitalId) &&
+                    appointment.getdoctorHospitalId().equals(doctorHospitalId) &&
+                    appointment.getStatus().equals(status)) {
+                    filteredAppointments.add(appointment); // Add matching appointment
+                }
+            }
+        }
+        return filteredAppointments;
     }
 
 }

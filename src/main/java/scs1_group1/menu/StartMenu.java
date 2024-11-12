@@ -150,6 +150,12 @@ public void run() {
             System.out.print("Enter new password: ");
             newPassword = sc.nextLine();
     
+            // Check if the new password meets complexity requirements
+            if (!isPasswordComplex(newPassword)) {
+                System.out.println("Password must be 6-20 characters and contain at least one digit, one lowercase, and one uppercase letter.");
+                continue;
+            }
+    
             System.out.print("Confirm new password: ");
             String confirmPassword = sc.nextLine();
     
@@ -161,6 +167,21 @@ public void run() {
                 System.out.println("Passwords do not match. Please try again.");
             }
         }
+    }
+    
+    
+    // addtional functions
+    private boolean isPasswordComplex(String password) {
+        if (password.length() < 6 || password.length() > 20) {
+            return false;
+        }
+        boolean hasUpper = false, hasLower = false, hasDigit = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) hasUpper = true;
+            else if (Character.isLowerCase(c)) hasLower = true;
+            else if (Character.isDigit(c)) hasDigit = true;
+        }
+        return hasUpper && hasLower && hasDigit;
     }
     
 }

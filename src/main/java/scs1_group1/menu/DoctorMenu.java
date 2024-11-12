@@ -37,9 +37,16 @@ public class DoctorMenu extends Menu {
     public void run() {
 
         /*//put some sample appointments for testing
-        appointmentContainer.addAppointment("2021-10-01 10:00", "P1001", doctorHospitalId);
-        appointmentContainer.addAppointment("2021-10-01 11:00", "P1002", doctorHospitalId);
-        appointmentContainer.addAppointment("2021-10-01 14:00", "P1003", doctorHospitalId);*/
+        appointmentContainer.addAppointment("2024-11-18 10:00", "P1001", doctorHospitalId);
+        appointmentContainer.addAppointment("2024-11-18 11:00", "P1002", doctorHospitalId);
+        appointmentContainer.addAppointment("2024-11-18 14:00", "P1003", doctorHospitalId);*/
+
+        /*doctor.addAvailableSlot("2024-11-19 10:00");
+        doctor.addAvailableSlot("2024-11-19 11:00");
+        doctor.addAvailableSlot("2024-11-19 12:00");
+        doctor.addAvailableSlot("2024-11-19 14:00");
+        doctor.addAvailableSlot("2024-11-19 15:00");
+        doctor.addAvailableSlot("2024-11-19 16:00");*/
 
         Scanner sc=new Scanner(System.in);
         int choice;
@@ -78,7 +85,7 @@ public class DoctorMenu extends Menu {
         do {
             System.out.println("----------------------------------------");
             System.out.println("Appointments Menu");
-            System.out.println("0. Log out");
+            System.out.println("0. Back");
             System.out.println("1. View Pending Appointments");
             System.out.println("2. View Confirmed Appointments");
             System.out.println("3. View Completed Appointments");
@@ -397,7 +404,7 @@ public class DoctorMenu extends Menu {
         do {
             System.out.println("----------------------------------------");
             System.out.println("Set Availability Menu");
-            System.out.println("0. Log out");
+            System.out.println("0. Back");
             System.out.println("1. Add Available Slot");
             System.out.println("2. View Available Slots");
     
@@ -418,8 +425,12 @@ public class DoctorMenu extends Menu {
                 case 1:
                     System.out.print("Enter available slot (YYYY-MM-DD HH:MM): ");
                     String slot = sc.nextLine(); // Use nextLine to capture the full slot input
-                    doctor.addAvailableSlot(slot);
-                    System.out.println("Slot added successfully.");
+                    if (scs1_group1.container.data.AppointmentContainer.isValidDateTime(slot)) {
+                        doctor.addAvailableSlot(slot);
+                        System.out.println("Slot added successfully. :)");
+                    } else {
+                        System.out.println("Invalid date and time format. Please use the format YYYY-MM-DD HH:MM.");
+                    }
                     break;
                 case 2:
                     System.out.println("Available Slots:");
@@ -441,7 +452,7 @@ public class DoctorMenu extends Menu {
         do {
             System.out.println("----------------------------------------");
             System.out.println("Medical Record Menu");
-            System.out.println("0. Log out");
+            System.out.println("0. Back");
             System.out.println("1. View Medical Record");
             System.out.println("2. Edit Medical Record");
 
@@ -462,13 +473,18 @@ public class DoctorMenu extends Menu {
 
     private void viewMedicalRecord() {
         System.out.println("Patients Under Your Care:");
-        System.out.printf("%-15s %-20s%n", "Hospital ID", "Patient Name");
-        System.out.println("----------------------------------------");
+        System.out.printf("%-15s %-20s %-15s %-10s %-5s %-30s%n", "Hospital ID", "Patient Name", "Date of Birth", "Gender", "Blood type", "Email");
+        System.out.println("---------------------------------------------------------------------------------------------------------");
     
         // Print each patient's hospital ID and name
         doctor.getAllPatientsUnderCare().forEach((patientHospitalId) -> {
             String patientName = patientContainer.getUserByHospitalId(patientHospitalId).getName();
-            System.out.printf("%-15s %-20s%n", patientHospitalId, patientName);
+            String dateOfBirth = patientContainer.getPatientByHospitalId(patientHospitalId).getDateOfBirth();
+            String gender = patientContainer.getUserByHospitalId(patientHospitalId).getGender();
+            String bloodType = patientContainer.getPatientByHospitalId(patientHospitalId).getBloodType();
+            String email = patientContainer.getUserByHospitalId(patientHospitalId).getEmail();
+
+            System.out.printf("%-15s %-20s %-15s %-10s %-5s %-30s%n", patientHospitalId, patientName, dateOfBirth, gender, bloodType, email);
             //also print the diagnosis and treatment
             System.out.println("Diagnosis:");
             patientContainer.getPatientByHospitalId(patientHospitalId).getMedicalRecord().getDiagnoses().forEach((diagnosis) -> {
@@ -492,7 +508,7 @@ public class DoctorMenu extends Menu {
             do {
                 System.out.println("----------------------------------------");
                 System.out.println("Edit Medical Record of " + patientContainer.getUserByHospitalId(patientHospitalId).getName() + " (" + patientHospitalId + ")");
-                System.out.println("0. Log out");
+                System.out.println("0. Back");
                 System.out.println("1. Add Diagnosis");
                 System.out.println("2. Add Treatment");
     
