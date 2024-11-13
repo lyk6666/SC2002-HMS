@@ -3,12 +3,13 @@ package scs1_group1.record;
 public class Prescription extends Record {
     private String medicine;
     private int amount;
-    private String status = "pending";
+    private String status ;
 
-    public Prescription(String medicine, int amount) {
+    public Prescription(String medicine, int amount, String status) {
         super();  // Passes the unique ID to the Record superclass
         this.medicine = medicine;
         this.amount = amount;
+        this.status = status;
     }
 
     public String getMedicine() {

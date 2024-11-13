@@ -1,0 +1,3 @@
+AppointmentRecordId,Medicine,Amount,Status
+P1003D0012023-11-01 11:00,Amoxicillin,2,completed
+P1001D0012023-11-01 13:00,Ibuprofen,3,pending

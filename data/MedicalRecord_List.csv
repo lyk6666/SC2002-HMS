@@ -1,0 +1,4 @@
+patientHospitalId,diagnoses,treatments
+P1001,"Diabetes, Hypertension","Insulin therapy, Blood pressure medication"
+P1002,"Asthma","Inhaler, Allergy control"
+P1003,"Fracture, High cholesterol","Bone setting, Cholesterol medication"

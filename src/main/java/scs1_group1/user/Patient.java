@@ -20,7 +20,9 @@ public class Patient extends User {
         
         String dateOfBirth,
         String phoneNumber,
-        String bloodType
+        String bloodType,
+
+        String medicalRecordPath
         ) 
     {
         super(hospitalId, password, name, gender, userType,email);
@@ -28,7 +30,7 @@ public class Patient extends User {
         this.dateOfBirth = dateOfBirth; 
         this.phoneNumber = phoneNumber;
         this.bloodType = bloodType;
-        this.medicalRecord = new MedicalRecord(hospitalId); // Initialize MedicalRecord with patient hospital ID
+        this.medicalRecord = new MedicalRecord(hospitalId,medicalRecordPath); // Initialize MedicalRecord with patient hospital ID and path to the MedicalRecord CSV
     }
 
     public String getDateOfBirth() {

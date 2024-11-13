@@ -133,7 +133,7 @@ public class PatientMenu extends Menu {
     
             // Fetch and display the Appointment Outcome Record
             Appointment selectedAppointment = appointments.get(choice - 1);
-            AppointmentOutcomeRecord outcomeRecord = appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getRecordId());
+            AppointmentOutcomeRecord outcomeRecord = appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getAppointmentIdentifyId());
     
             if (outcomeRecord != null) {
                 System.out.println("----------------------------------------");

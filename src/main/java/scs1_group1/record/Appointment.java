@@ -4,18 +4,27 @@ public class Appointment extends Record {
     private String time;
     private String patientHospitalId;
     private String doctorHospitalId;
-    private String status = "pending";
+    private String status ;
+    private String appointmentIdentifyId;//a unique id for each appointment, constructed by the patientHospitalId+doctorHospitalId+time
 
-    public Appointment(String time, String patientHospitalId, String doctorHospitalId) {
+
+    public Appointment(String time, String patientHospitalId, String doctorHospitalId, String status) {
         super();
         this.time = time;
         this.patientHospitalId = patientHospitalId;
         this.doctorHospitalId = doctorHospitalId;
+        this.status = status;
+        this.appointmentIdentifyId = patientHospitalId + doctorHospitalId + time;
     }
 
     @Override
     public String toString() {
         return time;
+    }
+
+    //get the appointment record id
+    public String getAppointmentIdentifyId() {
+        return appointmentIdentifyId;
     }
 
     //Time

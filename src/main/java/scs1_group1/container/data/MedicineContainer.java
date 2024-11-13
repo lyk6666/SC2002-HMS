@@ -2,6 +2,7 @@ package scs1_group1.container.data;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,23 @@ public class MedicineContainer extends RecordContainer {
         }
         return null;
     }
-    
+
+     // Export all medicines to CSV file
+    public void exportMedicineToCSV(String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Write the CSV header
+            writer.write("Medicine Name,Initial Stock,Low Stock Level Alert\n");
+
+            // Write each medicine's details to the CSV file
+            for (Medicine medicine : getAllMedicines()) {
+                writer.write(String.format("%s,%d,%d\n",
+                    medicine.getMedicineName(),
+                    medicine.getCurrentStock(),
+                    medicine.getAlertThreshold()
+                ));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

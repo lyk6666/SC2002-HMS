@@ -308,7 +308,7 @@ public class DoctorMenu extends Menu {
                         sc.nextLine(); // Clear the buffer
 
                         // Create and add Prescription to the outcome record
-                        appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getRecordId()).addPrescription(selectedMedicine.getMedicineName(), amount);
+                        appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getAppointmentIdentifyId()).addPrescription(selectedMedicine.getMedicineName(), amount);
                         System.out.println("Prescription added.");
                         System.out.println("----------------------------------------");
 
@@ -374,7 +374,7 @@ public class DoctorMenu extends Menu {
 
             // Fetch and display the Appointment Outcome Record
             Appointment selectedAppointment = appointments.get(choice - 1);
-            AppointmentOutcomeRecord outcomeRecord = appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getRecordId());
+            AppointmentOutcomeRecord outcomeRecord = appointmentOutcomeRecordContainer.getAppointmentOutcomeRecordById(selectedAppointment.getAppointmentIdentifyId());
 
             if (outcomeRecord != null) {
                 System.out.println("----------------------------------------");
