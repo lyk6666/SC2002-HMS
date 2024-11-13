@@ -569,7 +569,7 @@ public class AdministratorMenu extends Menu {
             System.out.println("0. Back");
             System.out.println("1. Filtered by gender");
             System.out.println("2. Filtered by age");
-            System.out.println("3. Filetered by role");
+            System.out.println("3. Filtered by role");
             System.out.println("4. No Fileter");
             choice = sc.nextInt();
             
