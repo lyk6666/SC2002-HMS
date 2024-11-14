@@ -52,9 +52,9 @@ public class Main {
         // Export data back to CSV files upon quitting
         patientContainer.exportPatientsToCSV(patientPath);
         ((StaffContainer)doctorContainer).initializeStaffCSV(staffPath);
-        doctorContainer.appendDoctorToCSV(staffPath);
-        pharmacistContainer.appendPharmacistToCSV(staffPath);
-        administratorContainer.appendAdministratorToCSV(staffPath);
+        doctorContainer.appendStaffToCSVByStaffType(staffPath, "Doctor");
+        pharmacistContainer.appendStaffToCSVByStaffType(staffPath, "Pharmacist");
+        administratorContainer.appendStaffToCSVByStaffType(staffPath, "Administrator");
         medicineContainer.exportMedicineToCSV(MedicinePath);
         appointmentContainer.exportAppointmentToCSV(AppointmentPath);
         replenishmentRequestContainer.exportReplenishmentRequestToCSV(ReplenishmentRequestPath);
