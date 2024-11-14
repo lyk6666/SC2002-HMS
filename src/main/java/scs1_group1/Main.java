@@ -51,7 +51,10 @@ public class Main {
 
         // Export data back to CSV files upon quitting
         patientContainer.exportPatientsToCSV(patientPath);
-        ((StaffContainer) doctorContainer).exportStaffToCSV(staffPath); // Single call for all staff
+        ((StaffContainer)doctorContainer).initializeStaffCSV(staffPath);
+        doctorContainer.appendDoctorToCSV(staffPath);
+        pharmacistContainer.appendPharmacistToCSV(staffPath);
+        administratorContainer.appendAdministratorToCSV(staffPath);
         medicineContainer.exportMedicineToCSV(MedicinePath);
         appointmentContainer.exportAppointmentToCSV(AppointmentPath);
         replenishmentRequestContainer.exportReplenishmentRequestToCSV(ReplenishmentRequestPath);

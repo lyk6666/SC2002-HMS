@@ -55,7 +55,7 @@ public class PharmacistMenu extends Menu {
     private void appointmentOutcomeRecord() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Appointment Outcome Records:");
-        System.out.printf("%-5s %-15s %-20s %-20s %-20s%n", "No.", "Appointment ID", "Service Type", "Patient ID", "Doctor ID");
+        System.out.printf("%-5s %-30s %-20s %-20s %-20s%n", "No.", "Appointment ID", "Service Type", "Patient ID", "Doctor ID");
         System.out.println("--------------------------------------------------------------------------------");
 
         // Retrieve all AppointmentOutcomeRecords
@@ -66,7 +66,7 @@ public class PharmacistMenu extends Menu {
         } else {
             for (int i = 0; i < records.size(); i++) {
                 AppointmentOutcomeRecord record = records.get(i);
-                System.out.printf("%-5d %-15d %-20s %-20s %-20s%n", 
+                System.out.printf("%-5d %-30s %-20s %-20s %-20s%n", 
                     (i + 1), 
                     record.getAppointmentRecordId(), 
                     record.getServiceType(), 

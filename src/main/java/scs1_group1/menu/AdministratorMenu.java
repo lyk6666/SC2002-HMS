@@ -391,7 +391,6 @@ public class AdministratorMenu extends Menu {
         String userType = sc.nextLine().trim();
         if (!userType.equalsIgnoreCase("Doctor") && !userType.equalsIgnoreCase("Pharmacist") && !userType.equalsIgnoreCase("Administrator")) {
             System.out.println("Invalid staff type entered.");
-            return;
         }
         
         System.out.print("Enter Hospital ID: ");
@@ -400,7 +399,7 @@ public class AdministratorMenu extends Menu {
         String password = sc.nextLine().trim();
         System.out.print("Enter Name: ");
         String name = sc.nextLine().trim();
-        System.out.print("Enter Gender: ");
+        System.out.print("Enter Gender (Male/Female): ");
         String gender = sc.nextLine().trim();
         System.out.print("Enter Email: ");
         String email = sc.nextLine().trim();
@@ -570,7 +569,7 @@ public class AdministratorMenu extends Menu {
             System.out.println("1. Filtered by gender");
             System.out.println("2. Filtered by age");
             System.out.println("3. Filtered by role");
-            System.out.println("4. No Fileter");
+            System.out.println("4. No Filter");
             choice = sc.nextInt();
             
             switch (choice) {

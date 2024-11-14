@@ -550,9 +550,16 @@ public class DoctorMenu extends Menu {
         System.out.print("Enter patient hospital ID that wanna put under care: ");
         String patientHospitalId = sc.next();
         if (patientContainer.getUserByHospitalId(patientHospitalId) != null) {
-            doctor.addPatientUnderCare(patientHospitalId);
-            String patientName = patientContainer.getUserByHospitalId(patientHospitalId).getName(); 
-            System.out.println("Patient " + patientName + " added to your care");   
+
+            //first check if the patient is already under the care of this doctor
+            if (doctor.getAllPatientsUnderCare().contains(patientHospitalId)) {
+                System.out.println("Patient is already under your care.");
+            }
+            else{
+                doctor.addPatientUnderCare(patientHospitalId);
+                String patientName = patientContainer.getUserByHospitalId(patientHospitalId).getName(); 
+                System.out.println("Patient " + patientName + " added to your care");   
+            }
         } else {
             System.out.println("Patient not found");
         }

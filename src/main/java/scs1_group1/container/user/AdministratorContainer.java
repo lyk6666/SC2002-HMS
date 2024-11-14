@@ -10,6 +10,11 @@ public class AdministratorContainer extends StaffContainer {
         super(filePath, "Administrator"); // Only import rows with userType "Administrator"
     }
 
+    //append administrator to csv by extending staff container
+    public void appendAdministratorToCSV(String filePath) {
+        appendStaffToCSVByStaffType(filePath, "administrator");
+    }
+
     //give out all admins as hashmap
     public HashMap <String, User> getAllAdministrators(){
         return this.getAllUsersByUserType("Administrator");

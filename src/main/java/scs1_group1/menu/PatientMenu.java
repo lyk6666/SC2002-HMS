@@ -64,6 +64,22 @@ public class PatientMenu extends Menu {
 
     private void manageAppointmentOutcomeRecord() {
         Scanner sc = new Scanner(System.in);
+
+        System.out.println("Completed Appointments:");
+        System.out.printf("%-5s %-15s %-20s %-20s%n", "No.", "Date & Time", "Doctor ID", "Status");
+        System.out.println("------------------------------------------------------------");
+
+        List<Appointment> allAppointments = appointmentContainer.getAllAppointmentsByPatientIdAndStatus(patientHospitalId, "completed");
+
+        if (allAppointments.isEmpty()) {
+            System.out.println("No completed appointments found.");
+        } else {
+            for (int i = 0; i < allAppointments.size(); i++) {
+                Appointment appointment = allAppointments.get(i);
+                String doctorId = appointment.getdoctorHospitalId();
+                System.out.printf("%-5d %-15s %-20s %-20s%n", (i + 1), appointment.getTime(), doctorId, appointment.getStatus());
+            }
+        }
     
         System.out.println("Filter options:");
         System.out.println("1. Filter by Doctor");

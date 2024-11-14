@@ -61,36 +61,26 @@ public class StaffContainer extends UserContainer {
         }
     }
 
-    // Export all staff (Doctors, Pharmacists, Administrators) to a single CSV file
-    public void exportStaffToCSV(String filePath) {
+    // Method to initialize the CSV with header
+    public void initializeStaffCSV(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            // Write header
+            // Write the header
             writer.write("Staff ID,Password,Name,Role,Gender,Age\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-            // Export Doctors
-            List<Staff> doctors = getAllUsersByUserType("Doctor").values().stream()
+    // Method to append specific staff type records to the CSV
+    public void appendStaffToCSVByStaffType(String filePath, String staffType) {
+        try (FileWriter writer = new FileWriter(filePath, true)) { // `true` enables appending mode
+            List<Staff> staffList = getAllUsersByUserType(staffType).values().stream()
                 .map(user -> (Staff) user)
                 .collect(Collectors.toList());
-            for (Staff doctor : doctors) {
-                writeStaffToCSV(writer, doctor, "Doctor");
-            }
 
-            // Export Pharmacists
-            List<Staff> pharmacists = getAllUsersByUserType("Pharmacist").values().stream()
-                .map(user -> (Staff) user)
-                .collect(Collectors.toList());
-            for (Staff pharmacist : pharmacists) {
-                writeStaffToCSV(writer, pharmacist, "Pharmacist");
+            for (Staff staff : staffList) {
+                writeStaffToCSV(writer, staff, staffType);
             }
-
-            // Export Administrators
-            List<Staff> administrators = getAllUsersByUserType("Administrator").values().stream()
-                .map(user -> (Staff) user)
-                .collect(Collectors.toList());
-            for (Staff admin : administrators) {
-                writeStaffToCSV(writer, admin, "Administrator");
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -10,6 +10,11 @@ public class PharmacistContainer extends StaffContainer {
         super(filePath, "Pharmacist"); // Only import rows with userType "Pharmacist"
     }
 
+    //append pharmacist to csv by extending staff container
+    public void appendPharmacistToCSV(String filePath) {
+        appendStaffToCSVByStaffType(filePath, "pharmacist");
+    }
+
     //give out all pharmacist as hashmap
     public HashMap <String, User> getAllPharmacists(){
         return this.getAllUsersByUserType("Pharmacist");
