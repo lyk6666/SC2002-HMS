@@ -6,11 +6,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents the medical record of a patient, which contains information such as 
+ * diagnoses and treatment plans. Medical records are loaded from a CSV file.
+ */
 public class MedicalRecord extends Record {
     private String patientHospitalId;
     private ArrayList<String> diagnoses;
     private ArrayList<String> treatments;
 
+    /**
+     * Constructs a MedicalRecord for a specific patient based on the provided CSV file path.
+     *
+     * @param patientHospitalId The hospital ID of the patient.
+     * @param medicalRecordPath The path to the CSV file containing medical records.
+     */
     public MedicalRecord(String patientHospitalId, String medicalRecordPath) {
         super();
         this.patientHospitalId = patientHospitalId;
@@ -21,6 +31,11 @@ public class MedicalRecord extends Record {
         loadMedicalRecordFromCSV(medicalRecordPath);
     }
 
+    /**
+     * Loads the medical record data for the specified patient from a CSV file.
+     *
+     * @param filePath The path to the CSV file containing medical records.
+     */
     private void loadMedicalRecordFromCSV(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -48,26 +63,49 @@ public class MedicalRecord extends Record {
         }
     }
 
+    /**
+     * Returns a string representation of the medical record.
+     *
+     * @return A string representing the patient hospital ID.
+     */
     @Override
     public String toString() {
         return "Patient"+patientHospitalId;
     }
 
-    //Patient Hospital ID
+    /**
+     * Gets the hospital ID of the patient.
+     *
+     * @return The hospital ID of the patient.
+     */
     public String getPatientHospitalId() {
         return patientHospitalId;
     }
 
+    /**
+     * Sets the hospital ID of the patient.
+     *
+     * @param patientHospitalId The hospital ID to set.
+     */
     public void setPatientHospitalId(String patientHospitalId) {
         this.patientHospitalId = patientHospitalId;
     }
 
-    //Treatment Plans
+    /**
+     * Gets the treatment plans for the patient.
+     *
+     * @return A list of treatment plans.
+     */
     public ArrayList<String> getTreatments() {
         return treatments;
     }
 
-    //edit treatment plan by index
+    /**
+     * Updates a treatment plan at a specific index.
+     *
+     * @param index         The index of the treatment plan to update.
+     * @param treatmentPlan The new treatment plan.
+     */
     public void setTreatment(int index, String treatmentPlan) {
         if (index >= 0 && index < treatments.size()) {
             treatments.set(index, treatmentPlan);
@@ -77,22 +115,42 @@ public class MedicalRecord extends Record {
         }
     }
 
+    /**
+     * Adds a new treatment plan to the medical record.
+     *
+     * @param treatmentPlan The treatment plan to add.
+     */
     public void addTreatment(String treatmentPlan) {
         treatments.add(treatmentPlan);
     }
 
+    /**
+     * Removes a treatment plan from the medical record at a specific index.
+     *
+     * @param index The index of the treatment plan to remove.
+     */
     public void removeTreatmentPlan(int index) {
         if (index >= 0 && index < treatments.size()) {
             treatments.remove(index);
         }
     }
 
-    //Diagnoses
+    /**
+     * Gets the diagnoses for the patient.
+     *
+     * @return A list of diagnoses.
+     */
     public ArrayList<String> getDiagnoses() {
         return diagnoses;
     }
 
-    //edit diagnose by index
+
+    /**
+     * Updates a diagnosis at a specific index.
+     *
+     * @param index    The index of the diagnosis to update.
+     * @param diagnose The new diagnosis.
+     */
     public void setDiagnose(int index, String diagnose) {
         if (index >= 0 && index < diagnoses.size()) {
             diagnoses.set(index, diagnose);
@@ -102,10 +160,21 @@ public class MedicalRecord extends Record {
         }
     }
 
+    /**
+     * Adds a new diagnosis to the medical record.
+     *
+     * @param diagnose The diagnosis to add.
+     */
     public void addDiagnose(String diagnose) {
         diagnoses.add(diagnose);
     }
 
+
+    /**
+     * Removes a diagnosis from the medical record at a specific index.
+     *
+     * @param index The index of the diagnosis to remove.
+     */
     public void removeDiagnose(int index) {
         if (index >= 0 && index < diagnoses.size()) {
             diagnoses.remove(index);

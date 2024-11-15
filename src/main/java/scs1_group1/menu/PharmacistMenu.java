@@ -11,12 +11,24 @@ import scs1_group1.record.Medicine;
 import scs1_group1.record.Prescription;
 
 
+/**
+ * The PharmacistMenu class represents the menu specifically for pharmacists.
+ * It allows pharmacists to manage appointment outcome records and medicine inventory.
+ */
 public class PharmacistMenu extends Menu {
     private String pharmacistHospitalId;
     private AppointmentOutcomeRecordContainer appointmentOutcomeRecordContainer;
     private MedicineContainer medicineContainer;
     private ReplenishmentRequestContainer ReplenishmentRequestContainer;
 
+    /**
+     * Constructor to create a new PharmacistMenu instance.
+     *
+     * @param pharmacistHospitalId           The hospital ID of the pharmacist.
+     * @param appointmentOutcomeRecordContainer The container storing appointment outcome records.
+     * @param medicineContainer              The container storing medicine inventory data.
+     * @param ReplenishmentRequestContainer  The container storing replenishment requests.
+     */
     public PharmacistMenu(String pharmacistHospitalId , AppointmentOutcomeRecordContainer appointmentOutcomeRecordContainer, MedicineContainer medicineContainer, ReplenishmentRequestContainer ReplenishmentRequestContainer) {
         super();
         this.pharmacistHospitalId=pharmacistHospitalId;
@@ -52,6 +64,10 @@ public class PharmacistMenu extends Menu {
         } while (choice!=0);
     }
 
+    /**
+     * Displays all appointment outcome records for the pharmacist and allows the pharmacist
+     * to view and dispense prescriptions associated with each appointment.
+     */
     private void appointmentOutcomeRecord() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Appointment Outcome Records:");
@@ -171,6 +187,10 @@ public class PharmacistMenu extends Menu {
 
 
 
+    /**
+     * Displays the medicine inventory and allows the pharmacist to request replenishment
+     * of any medicine that is low in stock.
+     */
     private void medicineInventory() {
         Scanner sc = new Scanner(System.in);
     

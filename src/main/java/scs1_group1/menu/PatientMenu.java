@@ -12,6 +12,12 @@ import scs1_group1.record.MedicalRecord;
 import scs1_group1.record.Prescription;
 import scs1_group1.user.Doctor;
 import scs1_group1.user.Patient;
+
+/**
+ * PatientMenu represents a menu specifically for patients,
+ * allowing them to manage their medical records, appointments,
+ * and personal contact information.
+ */
 public class PatientMenu extends Menu {
     private String patientHospitalId;
     private Patient patient;
@@ -19,6 +25,15 @@ public class PatientMenu extends Menu {
     private AppointmentContainer appointmentContainer;
     private AppointmentOutcomeRecordContainer appointmentOutcomeRecordContainer;
 
+    /**
+     * Constructor to create a new PatientMenu instance.
+     *
+     * @param hospitalId                   The hospital ID of the patient.
+     * @param patientContainer             The container storing patient data.
+     * @param doctorContainer              The container storing doctor data.
+     * @param appointmentContainer         The container storing appointment data.
+     * @param appointmentOutcomeRecordContainer The container storing appointment outcome records.
+     */
     public PatientMenu(
         String hospitalId ,
         PatientContainer patientContainer, DoctorContainer doctorContainer, AppointmentContainer appointmentContainer, AppointmentOutcomeRecordContainer appointmentOutcomeRecordContainer) 
@@ -62,6 +77,10 @@ public class PatientMenu extends Menu {
         } while (choice!=0);
     }
 
+    /**
+     * Allows the patient to view appointment outcome records.
+     * Patients can filter records by doctor or date.
+     */
     private void manageAppointmentOutcomeRecord() {
         Scanner sc = new Scanner(System.in);
 
@@ -180,6 +199,10 @@ public class PatientMenu extends Menu {
         }
     }    
 
+    /**
+     * Allows the patient to view and update their contact information,
+     * including email and phone number.
+     */
     private void viewContactInformation() {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -227,6 +250,10 @@ public class PatientMenu extends Menu {
         } while (choice != 0);
     }
 
+    /**
+     * Allows the patient to manage appointments by scheduling, viewing,
+     * modifying, or canceling appointments.
+     */
     private void manageAppointment() {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -257,6 +284,9 @@ public class PatientMenu extends Menu {
         } while (choice != 0);
     }
 
+    /**
+     * Allows the patient to schedule an appointment with an available doctor.
+     */
     private void scheduleAppointment() {
         Scanner sc = new Scanner(System.in);
     
@@ -320,6 +350,10 @@ public class PatientMenu extends Menu {
         System.out.println("Appointment scheduled successfully with " + doctor.getName() + " for " + chosenSlot + ".");
     }
     
+    /**
+     * Displays upcoming appointments for the patient.
+     * Patients can modify or cancel their upcoming appointments.
+     */
     private void UpcomingAppointments() {
         Scanner sc = new Scanner(System.in);
     
@@ -389,7 +423,11 @@ public class PatientMenu extends Menu {
         }
     }
     
-    // Method to modify an appointment
+    /**
+     * Modifies an existing appointment by selecting a new available time slot.
+     *
+     * @param appointment The appointment to modify.
+     */
     private void modifyAppointment(Appointment appointment) {
         Scanner sc = new Scanner(System.in);
         Doctor doctor = doctorContainer.getDoctorByHospitalId(appointment.getdoctorHospitalId());
@@ -439,12 +477,20 @@ public class PatientMenu extends Menu {
         System.out.println("Appointment with "+doctorContainer.getDoctorByHospitalId(appointment.getdoctorHospitalId()).getName()+ " rescheduled successfully to " + newSlot + ".");
     }
     
-    // Method to cancel an appointment
+
+    /**
+     * Cancels an existing appointment for the patient.
+     *
+     * @param appointment The appointment to cancel.
+     */
     private void cancelAppointment(Appointment appointment) {
         appointmentContainer.removeAppointment(appointment.getRecordId());
         System.out.println("Appointment cancelled successfully.");
     }
     
+    /**
+     * Displays the patient's medical record, including diagnoses and treatments.
+     */
     private void viewMedicalRecord() {
         String name = patient.getName();
         String dateOfBirth = patient.getDateOfBirth();

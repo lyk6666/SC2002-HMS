@@ -13,7 +13,20 @@ import scs1_group1.container.user.PharmacistContainer;
 import scs1_group1.container.user.StaffContainer;
 import scs1_group1.menu.StartMenu;
 
+
+/**
+ * The main class for running the Hospital Management System (HMS).
+ * 
+ * This class initializes all necessary containers, sets up data paths, and starts the user interface for the HMS.
+ * It also ensures that data is saved back to CSV files upon quitting the system.
+ */
 public class Main {
+    
+    /**
+     * The main method that initializes containers, runs the start menu, and exports data upon exit.
+     * 
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         String patientPath="data/Patient_List.csv";
         String staffPath="data/Staff_List.csv";

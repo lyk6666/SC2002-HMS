@@ -14,6 +14,11 @@ import scs1_group1.record.Medicine;
 import scs1_group1.record.Prescription;
 import scs1_group1.user.Doctor;
 
+/**
+ * The DoctorMenu class provides a menu interface for a doctor to interact with the system.
+ * It includes functions for managing appointments, setting availability, managing patient records, 
+ * and viewing medical history.
+ */
 public class DoctorMenu extends Menu {
     private String doctorHospitalId;
     private Doctor doctor;
@@ -23,7 +28,16 @@ public class DoctorMenu extends Menu {
     private MedicineContainer medicineContainer;
 
 
-    //constructor
+    /**
+     * Constructs a DoctorMenu for the specified doctor.
+     *
+     * @param hospitalId The hospital ID of the doctor.
+     * @param doctorContainer The container holding doctor information.
+     * @param patientContainer The container holding patient information.
+     * @param appointmentContainer The container holding appointment information.
+     * @param appointmentOutcomeRecordContainer The container holding appointment outcome records.
+     * @param medicineContainer The container holding medicine information.
+     */
     public DoctorMenu(String hospitalId, DoctorContainer doctorContainer, PatientContainer patientContainer, AppointmentContainer appointmentContainer, AppointmentOutcomeRecordContainer appointmentOutcomeRecordContainer, MedicineContainer medicineContainer) {
         this.doctorHospitalId = hospitalId;
         doctor = (Doctor) doctorContainer.getUserByHospitalId(doctorHospitalId);//here dont need this keyword because the parameter name is different
@@ -33,6 +47,9 @@ public class DoctorMenu extends Menu {
         this.medicineContainer = medicineContainer;
     }
    
+    /**
+     * Runs the doctor menu interface, allowing interaction through the console.
+     */
     @Override
     public void run() {
 
@@ -78,6 +95,9 @@ public class DoctorMenu extends Menu {
         } while (choice!=0);
     }
 
+    /**
+     * Displays and manages the doctor's appointments, including pending, confirmed, and completed appointments.
+     */
     private void MyAppointments() {
         Scanner sc = new Scanner(System.in);
         int appointmentChoice;
@@ -117,6 +137,9 @@ public class DoctorMenu extends Menu {
         } while (appointmentChoice != 0);
     }
 
+    /**
+     * Displays the pending appointments of the doctor and allows the doctor to confirm or cancel them.
+     */
     private void pendingAppointments() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Pending Appointments:");
@@ -182,6 +205,9 @@ public class DoctorMenu extends Menu {
     }
     
 
+    /**
+     * Displays confirmed appointments of the doctor and allows the doctor to complete the appointments.
+     */
     private void confirmedAppointments() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Confirmed Appointments:");
@@ -333,6 +359,9 @@ public class DoctorMenu extends Menu {
     }
     
 
+    /**
+     * Displays completed appointments and allows the doctor to view outcome records.
+     */
     private void completedAppointments() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Completed Appointments:");
@@ -398,6 +427,9 @@ public class DoctorMenu extends Menu {
     }
 
 
+    /**
+     * Allows the doctor to set their availability by adding available slots.
+     */
     private void setAvailability() {
         Scanner sc = new Scanner(System.in);
         int setAvailabilityChoice;
@@ -445,6 +477,9 @@ public class DoctorMenu extends Menu {
     }
     
 
+    /**
+     * Displays the medical records of patients under the care of the doctor.
+     */
     private void MedicalRecord() {
         Scanner sc = new Scanner(System.in);
 
@@ -471,6 +506,9 @@ public class DoctorMenu extends Menu {
         } while (medicalRecordChoice!=0);
     }
 
+    /**
+     * Displays the medical record of a specific patient under the doctor's care.
+     */
     private void viewMedicalRecord() {
         System.out.println("Patients Under Your Care:");
         System.out.printf("%-15s %-20s %-15s %-10s %-5s %-30s%n", "Hospital ID", "Patient Name", "Date of Birth", "Gender", "Blood type", "Email");
@@ -497,6 +535,9 @@ public class DoctorMenu extends Menu {
         });
     }
 
+    /**
+     * Allows the doctor to edit the medical records of a specific patient.
+     */
     private void editMedicalRecord() {
         Scanner scMedical = new Scanner(System.in);
         System.out.print("Enter patient hospital ID that you want to edit: ");
@@ -545,6 +586,9 @@ public class DoctorMenu extends Menu {
         }
     }
 
+    /**
+     * Allows the doctor to add a patient under their care.
+     */
     private void addPatientUnderCare() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter patient hospital ID that wanna put under care: ");

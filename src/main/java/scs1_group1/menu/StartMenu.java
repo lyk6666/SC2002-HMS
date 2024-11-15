@@ -15,8 +15,18 @@ import scs1_group1.container.user.PatientContainer;
 import scs1_group1.container.user.PharmacistContainer;
 import scs1_group1.container.user.UserContainer;
 
+/**
+ * The StartMenu class represents the main entry point for users accessing the hospital management system.
+ * It provides options to log in as different types of users or to quit the application.
+ */
 public class StartMenu extends Menu {
     HashMap<String,Container> containers;
+
+    /**
+     * Constructs a StartMenu instance with the specified containers.
+     *
+     * @param containers The HashMap of containers representing various user and data storage containers.
+     */
     public StartMenu(HashMap<String,Container> containers) {
         this.containers=containers;
     }
@@ -131,7 +141,13 @@ public void run() {
     
 }
 
-
+    /**
+     * Creates and returns a user-specific menu based on the given hospital ID and password.
+     *
+     * @param hospitalId The hospital ID of the user attempting to log in.
+     * @param password   The password of the user.
+     * @return A Menu object for the logged-in user, or null if the login fails.
+     */
     public Menu createUserMenu(String hospitalId,String password) {
         PatientContainer patientContainer = (PatientContainer)(containers.get("Patient"));
         DoctorContainer doctorContainer = (DoctorContainer)(containers.get("Doctor"));
@@ -210,6 +226,13 @@ public void run() {
         return null;
     }  
     
+
+    /**
+     * Prompts the user to change their default password.
+     *
+     * @param userContainer The container storing user information.
+     * @param hospitalId    The hospital ID of the user.
+     */
     private void promptPasswordChange(UserContainer userContainer, String hospitalId) {
         Scanner sc = new Scanner(System.in);
         System.out.println("You are using the default password. Please change it for security.");
@@ -239,7 +262,12 @@ public void run() {
     }
     
     
-    // addtional functions
+    /**
+     * Checks if the given password meets complexity requirements.
+     *
+     * @param password The password to be checked.
+     * @return true if the password meets the complexity requirements, otherwise false.
+     */
     private boolean isPasswordComplex(String password) {
         if (password.length() < 6 || password.length() > 20) {
             return false;

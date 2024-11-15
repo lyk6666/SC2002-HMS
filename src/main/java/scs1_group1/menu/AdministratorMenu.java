@@ -20,6 +20,11 @@ import scs1_group1.user.Pharmacist;
 import scs1_group1.user.Staff;
 import scs1_group1.user.User;
 
+
+/**
+ * Menu class to manage various administrative operations in the Hospital Management System.
+ * Allows the administrator to manage appointments, staff, medicines, replenishment requests, and alert levels.
+ */
 public class AdministratorMenu extends Menu {
     private String adminHospitalId;
     private Administrator administrator;
@@ -31,6 +36,18 @@ public class AdministratorMenu extends Menu {
     private AppointmentContainer appointmentContainer;
     private AdministratorContainer administratorContainer;
 
+    /**
+     * Constructs an AdministratorMenu with all the required containers for functionality.
+     * 
+     * @param hospitalId Administrator's hospital ID.
+     * @param administratorContainer Container for administrators.
+     * @param patientContainer Container for patients.
+     * @param doctorContainer Container for doctors.
+     * @param pharmacistContainer Container for pharmacists.
+     * @param medicineContainer Container for medicines.
+     * @param replenishmentRequestContainer Container for replenishment requests.
+     * @param appointmentContainer Container for appointments.
+     */
     public AdministratorMenu(String hospitalId, AdministratorContainer administratorContainer, PatientContainer patientContainer, DoctorContainer doctorContainer, PharmacistContainer pharmacistContainer, MedicineContainer medicineContainer, ReplenishmentRequestContainer replenishmentRequestContainer, AppointmentContainer appointmentContainer) {
         this.adminHospitalId = hospitalId;
         administrator = (Administrator) administratorContainer.getUserByHospitalId(adminHospitalId);
@@ -43,6 +60,10 @@ public class AdministratorMenu extends Menu {
         this.administratorContainer = administratorContainer;
     }
     
+
+    /**
+     * Runs the administrator menu and prompts the user for choices to manage the system.
+     */
     @Override
     public void run() {
         Scanner sc=new Scanner(System.in);
@@ -78,6 +99,10 @@ public class AdministratorMenu extends Menu {
         } while (choice!=0);
     }
 
+    /**
+     * Changes the alert level for a specific medicine.
+     * Displays the list of medicines and allows the administrator to update the alert threshold.
+     */
     private void changeAlertLevel(){
         Scanner sc = new Scanner(System.in);
         System.out.println("----------------------------------------");
@@ -155,6 +180,10 @@ public class AdministratorMenu extends Menu {
         }
     }
 
+    /**
+     * Manages the medicines in the system.
+     * Allows the administrator to update medicine stock levels.
+     */
     private void manageMedicine() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------------------------------------");
@@ -232,6 +261,10 @@ public class AdministratorMenu extends Menu {
         }
     }
     
+    /**
+     * Manages the replenishment requests in the system.
+     * Allows the administrator to approve or reject requests for replenishing medicine stock.
+     */
     private void manageReplenishmentRequest() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------------------------------------");
@@ -326,6 +359,10 @@ public class AdministratorMenu extends Menu {
     }
     
 
+    /**
+     * Displays all the appointments in the system.
+     * Provides an overview of appointments including their status and the associated doctor and patient.
+     */
     public void viewAppointment() {
         System.out.println("----------------------------------------");
         System.out.println("All Appointments:");
@@ -350,6 +387,10 @@ public class AdministratorMenu extends Menu {
         }
     }
 
+    /**
+     * Manages the staff in the hospital.
+     * Provides options to add, edit, or delete staff members.
+     */
     private void manageStaff() {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -382,6 +423,10 @@ public class AdministratorMenu extends Menu {
         } while (choice != 0);
     }
 
+    /**
+     * Adds a new staff member to the system.
+     * Prompts the administrator for staff details including role, ID, name, and other details.
+     */
     private void addStaff() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Add Staff");
@@ -427,6 +472,10 @@ public class AdministratorMenu extends Menu {
         }
     }
 
+    /**
+     * Edits the details of an existing staff member.
+     * Prompts the administrator to enter new values for specific fields.
+     */
     private void editStaff() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Edit Staff");
@@ -501,6 +550,10 @@ public class AdministratorMenu extends Menu {
     }
 
 
+    /**
+     * Deletes a staff member from the system.
+     * Removes the staff member identified by their hospital ID.
+     */
     private void deleteStaff() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Delete Staff");
@@ -559,6 +612,10 @@ public class AdministratorMenu extends Menu {
         }
     }    
 
+    /**
+     * Displays all the staff in the system.
+     * Provides options to filter staff by gender, age, or role.
+     */
     private void printAllStaff() {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -590,6 +647,10 @@ public class AdministratorMenu extends Menu {
     }
 
 
+    /**
+     * Displays staff filtered by gender.
+     * Allows the administrator to view only male or female staff.
+     */
     public void genderFilteredView() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select Gender to View:");
@@ -640,6 +701,10 @@ public class AdministratorMenu extends Menu {
     }
     
 
+    /**
+     * Displays staff filtered by age range.
+     * Allows the administrator to specify a lower and upper limit for age.
+     */
     public void ageFilteredView() {
         Scanner sc = new Scanner(System.in);
         
@@ -705,6 +770,10 @@ public class AdministratorMenu extends Menu {
     
     
 
+    /**
+     * Displays staff filtered by role.
+     * Allows the administrator to view staff by specific roles such as Doctor, Pharmacist, or Administrator.
+     */
     public void roleFilterView(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Select Role to View:");
@@ -750,6 +819,9 @@ public class AdministratorMenu extends Menu {
         }
     }
 
+    /**
+     * Displays all staff members without any filters.
+     */
     public void noFilterView(){
         System.out.println("All Staff:");
         System.out.printf("%-5s %-15s %-20s %-15s %-10s %-5s%n", "No.", "Hospital ID", "Name", "Role", "Gender", "Age");

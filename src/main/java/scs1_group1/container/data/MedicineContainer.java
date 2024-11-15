@@ -10,8 +10,19 @@ import java.util.List;
 import scs1_group1.record.Medicine;
 import scs1_group1.record.Record;
 
+
+/**
+ * Container class for managing medicine records.
+ * Provides functionalities to load, retrieve, and export medicine data.
+ */
 public class MedicineContainer extends RecordContainer {
 
+
+    /**
+     * Constructs a MedicineContainer and loads medicines from the given CSV file.
+     * 
+     * @param filePath Path to the CSV file containing medicine data.
+     */
     public MedicineContainer(String filePath) {
         super();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -37,7 +48,11 @@ public class MedicineContainer extends RecordContainer {
         }
     }
 
-    // Method to get a list of all medicines in the container
+    /**
+     * Retrieves a list of all medicines in the container.
+     * 
+     * @return A list of Medicine objects representing all medicines in the container.
+     */
     public List<Medicine> getAllMedicines() {
         List<Medicine> medicines = new ArrayList<>();
         for (Record record : getRecords().values()) {
@@ -48,7 +63,12 @@ public class MedicineContainer extends RecordContainer {
         return medicines;
     } 
     
-    //since medicine name is unique, we can use this method to get the medicine object by its name
+    /**
+     * Retrieves a medicine by its name.
+     * 
+     * @param medicineName The name of the medicine to retrieve.
+     * @return The Medicine object if found, otherwise null.
+     */
     public Medicine getMedicineByName(String medicineName) {
         for (Record record : getRecords().values()) {
             if (record instanceof Medicine) {
@@ -61,7 +81,11 @@ public class MedicineContainer extends RecordContainer {
         return null;
     }
 
-     // Export all medicines to CSV file
+    /**
+     * Exports all medicines in the container to a CSV file.
+     * 
+     * @param filePath The path of the CSV file to write to.
+     */
     public void exportMedicineToCSV(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write the CSV header

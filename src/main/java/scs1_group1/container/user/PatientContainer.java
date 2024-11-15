@@ -9,7 +9,18 @@ import java.util.HashMap;
 import scs1_group1.user.Patient;
 import scs1_group1.user.User;
 
+/**
+ * Container class for managing Patient records.
+ * Provides functionalities to load, retrieve, and export Patient data.
+ */
 public class PatientContainer extends UserContainer {
+
+    /**
+     * Constructs a PatientContainer and loads patients from the given CSV file.
+     * 
+     * @param filePath Path to the CSV file containing Patient data.
+     * @param medicalRecordPath Path to the CSV file containing Medical Record data.
+     */
     public PatientContainer(String filePath, String medicalRecordPath) {
         super();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -51,17 +62,32 @@ public class PatientContainer extends UserContainer {
         }
     }
 
-    //get all patients as a hashmap
+
+    /**
+     * Retrieves all Patients in the container.
+     * 
+     * @return A HashMap containing all Patient objects, where the key is the hospital ID and the value is the User object.
+     */
     public HashMap <String, User> getAllPatients(){
         return this.getAllUsersByUserType("Patient");
     }
 
-    //get patient by hospital id
+    /**
+     * Retrieves a Patient by their hospital ID.
+     * 
+     * @param hospitalId The hospital ID of the Patient to retrieve.
+     * @return The Patient object if found, otherwise null.
+     */
     public Patient getPatientByHospitalId(String hospitalId){
         return (Patient) this.getUserByHospitalId(hospitalId);
     }
 
-    // Method to export all patient data to CSV
+
+    /**
+     * Exports all patient data to a CSV file.
+     * 
+     * @param outputFilePath Path to the CSV file where the patient data will be exported.
+     */
     public void exportPatientsToCSV(String output_filePath) {
         try (FileWriter writer = new FileWriter(output_filePath)) {
             // Write the header
@@ -88,7 +114,11 @@ public class PatientContainer extends UserContainer {
         }
     }
 
-    // Export medical records to CSV
+    /**
+     * Exports all medical records for patients to a CSV file.
+     * 
+     * @param medicalRecordPath Path to the CSV file where the medical record data will be exported.
+     */
     public void exportMedicalRecordsToCSV(String medicalRecordPath) {
         try (FileWriter writer = new FileWriter(medicalRecordPath)) {
             // Write header

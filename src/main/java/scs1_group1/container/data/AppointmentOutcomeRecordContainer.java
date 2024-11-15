@@ -13,13 +13,27 @@ import scs1_group1.record.Prescription;
 import scs1_group1.record.Record;
 
 
-
+/**
+ * Container class for managing appointment outcome records.
+ * Provides functionalities for loading, adding, and exporting appointment outcomes.
+ */
 public class AppointmentOutcomeRecordContainer extends RecordContainer {
+    
+    /**
+     * Constructs an AppointmentOutcomeRecordContainer and loads records from the given file.
+     * 
+     * @param filePath Path to the CSV file containing appointment outcome records.
+     */
     public AppointmentOutcomeRecordContainer(String filePath) {
         super();
         loadAppointmentOutcomeRecords(filePath);
     }
 
+    /**
+     * Loads appointment outcome records from a CSV file into the container.
+     * 
+     * @param filePath Path to the CSV file.
+     */
     private void loadAppointmentOutcomeRecords(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -53,7 +67,13 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
         }
     }
 
-    // a AppointmentOutcomeRecord refer and only refer to one appointment record, so this method only pass in the appointment object
+    /**
+     * Adds an appointment outcome record for a given appointment.
+     * 
+     * @param appointment The Appointment object for which the outcome is to be recorded.
+     * @param serviceType The type of service provided during the appointment.
+     * @param consultationNotes The consultation notes.
+     */
     public void addAppointmentOutcomeRecord(Appointment appointment, String serviceType, String consultationNotes) {
         // Extract details from the Appointment object
         String appointmentRecordId = appointment.getAppointmentIdentifyId();
@@ -73,6 +93,12 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
         super.putRecord(appointmentOutcomeRecord);
     }  
     
+    /**
+     * Retrieves an appointment outcome record by its appointment record ID.
+     * 
+     * @param appointmentRecordId The appointment record ID.
+     * @return The AppointmentOutcomeRecord object if found, otherwise null.
+     */
     public AppointmentOutcomeRecord getAppointmentOutcomeRecordById(String appointmentRecordId) {
         // Iterate through all records in the container
         for (Record record : getRecords().values()) {
@@ -86,7 +112,12 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
         return null; // Return null if no matching record is found
     }
 
-    // Get all appointment outcome records of a specific patient ID
+    /**
+     * Retrieves all appointment outcome records for a specific patient by their ID.
+     * 
+     * @param patientHospitalId The hospital ID of the patient.
+     * @return A list of AppointmentOutcomeRecord objects.
+     */
     public List<AppointmentOutcomeRecord> getAppointmentOutcomeRecordsByPatientId(String patientHospitalId) {
         List<AppointmentOutcomeRecord> outcomeRecords = new ArrayList<>();
 
@@ -102,7 +133,11 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
         return outcomeRecords; // Return the list of matching records (empty if none found)
     }
 
-    // Get all appointment outcome records
+    /**
+     * Retrieves all appointment outcome records in the container.
+     * 
+     * @return A list of all AppointmentOutcomeRecord objects.
+     */
     public List<AppointmentOutcomeRecord> getAllAppointmentOutcomeRecords() {
         List<AppointmentOutcomeRecord> outcomeRecords = new ArrayList<>();
 
@@ -116,7 +151,11 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
         return outcomeRecords; // Return the list of records
     }
 
-    // Method to export all AppointmentOutcomeRecords to CSV
+    /**
+     * Exports all appointment outcome records to a CSV file.
+     * 
+     * @param filePath The path of the CSV file to write to.
+     */
     public void exportAppointmentOutcomeRecordToCSV(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write header
@@ -137,7 +176,11 @@ public class AppointmentOutcomeRecordContainer extends RecordContainer {
         }
     }
 
-    // Method to export prescriptions to Prescriptions_List.csv
+    /**
+     * Exports prescriptions from appointment outcome records to a CSV file.
+     * 
+     * @param prescriptions_list The path of the CSV file to write prescriptions to.
+     */
     public void exportPrescriptionsToCSV(String prescriptions_list) {
         try (FileWriter writer = new FileWriter(prescriptions_list)) {
             // Write header
