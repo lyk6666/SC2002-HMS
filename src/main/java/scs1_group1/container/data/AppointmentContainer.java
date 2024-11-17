@@ -90,7 +90,7 @@ public class AppointmentContainer extends RecordContainer {
      */
 
     public void addAppointment(String time, String patientHospitalId,String doctorHospitalId) {
-        Appointment appointment = new Appointment(time,patientHospitalId, doctorHospitalId, "Pending");
+        Appointment appointment = new Appointment(time,patientHospitalId, doctorHospitalId, "pending");
         super.putRecord(appointment);
     }
     
