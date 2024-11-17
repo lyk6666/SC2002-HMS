@@ -6,7 +6,7 @@
 
 <br/>
 
-Report can be found in the `./report` folder.
+## Report can be found in the `./report` folder.
 
 ## Table of Contents
 
