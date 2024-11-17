@@ -6,6 +6,8 @@
 
 <br/>
 
+Report can be found in the `./report` folder.
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -104,11 +106,13 @@ The project follows a modular structure to separate concerns:
 
 For detailed documentation, refer to the `./docs` directory.
 
-[View the Java Documentation](https://github.com/SunnyRaymond/SC2002-HMS)
+[View the Java Documentation live](https://sc2002-hms-scs1-group1-javadoc.netlify.app/)
 
 ## UML Class Diagrams
 
 Class diagrams can be found in the `./diagrams` folder.
+
+![UML Diagram](./diagrams/UML_Diagram.png)
 
 ## Code of Conduct
 
